@@ -1,56 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kyan Talks - Beauty Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyan Talks - Beauty Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style></style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="header">
+    <div class="header">
     <div style="display:flex;align-items:center;">
-      <img src="logo.png" alt="Kyan Talks Logo">
-      <h1>Kyan Talks</h1>
+        <img src="logo.png" alt="Kyan Talks Logo">
+        <h1>Kyan Talks</h1>
     </div>
     <nav class="navbar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
     </nav>
     <button class="cart-icon-btn" onclick="toggleCart()">
-      <i class="fas fa-shopping-cart"></i>
-      <span class="cart-count-badge" id="cart-count">0</span>
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count-badge" id="cart-count">0</span>
     </button>
-  </div>
+</div>
 
-  <div class="hero">
-    <h2>Beauty that Empowers</h2>
-    <p>Discover our premium collection of beauty products designed to make you glow inside and out.</p>
-  </div>
-
-  <div class="products">
-    <h2>Our Beauty Products</h2>
-    <div class="product-cards" id="product-list"></div>
-  </div>
-
-  <div class="cart-sidebar" id="cart">
-    <div class="cart-sidebar-header">
-      <i class="fas fa-arrow-left back-arrow" onclick="toggleCart()"></i>
-      <h3>Your Cart</h3>
+    <div class="hero">
+        <h2>Beauty that Empowers</h2>
+        <p>Discover our premium collection of beauty products designed to make you glow inside and out.</p>
     </div>
-    <div id="cart-items"></div>
-    <button class="checkout-btn">Checkout</button>
-  </div>
 
-  <div class="footer">
-    <p>&copy; 2025 Kyan Talks. All rights reserved.</p>
-  </div>
+    <div class="products">
+        <h2>Our Beauty Products</h2>
+        <div class="product-cards" id="product-list"></div>
+    </div>
 
-  <script src="script.js"></script>
+    <div class="cart-sidebar" id="cart">
+        <div class="cart-sidebar-header">
+            <i class="fas fa-arrow-left back-arrow" onclick="toggleCart()"></i>
+            <h3>Your Cart</h3>
+        </div>
+        <div id="cart-items"></div>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Kyan Talks. All rights reserved.</p>
+    </div>
+
+    <script>
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/68ccbb3ad9b855192574b8c4/1j5frmn8u';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+
+        const productList = document.getElementById("product-list");
+        const cartSidebar = document.getElementById("cart");
+        const cartItemsContainer = document.getElementById("cart-items");
+        const cartCount = document.getElementById("cart-count");
+
+        let cart = [];
+
+        function toggleCart() {
+            cartSidebar.classList.toggle("active");
+        }
+
+        function addToCart(product) {
+            cart.push(product);
+            updateCart();
+        }
+
+        function updateCart() {
+            cartItemsContainer.innerHTML = "";
+            cart.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `<strong>${item.title}</strong><br>$${item.price.toFixed(2)}`;
+                cartItemsContainer.appendChild(div);
+            });
+            cartCount.textContent = cart.length;
+        }
+
+        fetch("https://fakestoreapi.com/products/category/women's clothing")
+            .then(res => res.json())
+            .then(data => {
+                productList.innerHTML = "";
+                data.forEach(product => {
+                    const card = document.createElement("div");
+                    card.classList.add("product-card");
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h4>${product.title}</h4>
+                        <p>$${product.price.toFixed(2)}</p>
+                        <button class="add-btn">Add to Cart</button>
+                    `;
+                    card.querySelector(".add-btn").addEventListener("click", () => addToCart(product));
+                    productList.appendChild(card);
+                });
+            });
+    </script>
 </body>
 </html>
