@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- HEADER -->
   <div class="header">
-    <div style="display:flex;align-items:center;">
+    <div class="logo-section">
       <img src="logo.png" alt="Kyan Talks Logo">
       <h1>Kyan Talks</h1>
     </div>
@@ -23,20 +24,36 @@
     </nav>
   </div>
 
+  <!-- HERO -->
   <div class="hero">
     <h2>Our Beauty Products</h2>
     <p>Explore our carefully curated collection of skincare, makeup, and wellness essentials.</p>
   </div>
 
+  <!-- PRODUCTS -->
   <div class="products">
     <h2>Shop Now</h2>
-    <div class="product-cards" id="product-list"></div>
+    <div class="product-cards" id="product-list">
+      <!-- Cards will be dynamically loaded -->
+    </div>
   </div>
 
+  <!-- FOOTER -->
   <div class="footer">
     <p>&copy; 2025 Kyan Talks. All rights reserved.</p>
   </div>
 
   <script src="script.js"></script>
 </body>
+<script>
+  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/68ccbb3ad9b855192574b8c4/1j5frmn8u';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+</script>
 </html>

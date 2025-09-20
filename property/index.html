@@ -6,52 +6,295 @@
     <title>Kyan Talks - Beauty Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style></style>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        img {
+            border-radius: 70%;
+        }
+        :root {
+            --main-green: #9EBC9E;
+            --soft-pink: #ffeced;
+            --pink: #FFAFC5;
+            --purple: #6e2a5b;
+            --hot-pink: #ca77a6;
+            --main-text: #333;
+            --pure-white: #fff;
+            --light-grey: #e7e6e6;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background: var(--light-grey);
+            color: var(--main-text);
+        }
+        .topbar {
+            background-color: var(--purple);
+            color: var(--pure-white);
+            padding: 22px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .topbar h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        .cart-btn {
+            background: linear-gradient(135deg, var(--purple), var(--hot-pink));
+            color: var(--pure-white);
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .cart-btn:hover {
+            background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+            transform: scale(1.05);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: red;
+            color: var(--pure-white);
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 60px 5%;
+            background: linear-gradient(rgba(113, 92, 107, 0.6), rgba(113, 92, 107, 0.6)), url('bg-herp.png') center/cover no-repeat;
+            color: #fff;
+        }
+        .hero-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+        .hero-section p {
+            max-width: 600px;
+            margin: auto;
+            font-size: 1.1em;
+            color: #f5f5f5;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        .shop-section {
+            padding: 50px 5%;
+            text-align: center;
+        }
+        .shop-section h2 {
+            font-size: 2em;
+            color: var(--purple);
+            margin-bottom: 30px;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        .product-box {
+            background: var(--pure-white);
+            border-radius: 10px;
+            width: 280px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .product-box h4 {
+            margin: 15px 0 5px;
+            font-size: 1.3em;
+            color: var(--purple);
+        }
+        .product-box p {
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+        .add-cart-btn {
+            background: linear-gradient(135deg, var(--purple), var(--hot-pink));
+            color: var(--pure-white);
+            padding: 10px 15px;
+            font-size: 0.95em;
+            margin-top: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .add-cart-btn:hover {
+            background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+            transform: scale(1.05);
+        }
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 300px;
+            height: 100%;
+            background: var(--pure-white);
+            box-shadow: -3px 0 8px rgba(0,0,0,0.2);
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .cart-panel.active {
+            right: 0;
+        }
+        .cart-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .cart-panel h3 {
+            margin: 0;
+            color: var(--purple);
+        }
+        .close-arrow {
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--purple);
+        }
+        .close-arrow:hover {
+            color: var(--hot-pink);
+        }
+        .cart-product {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .checkout-btn {
+            background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+            color: var(--pure-white);
+            width: 100%;
+            padding: 14px;
+            font-size: 1em;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .checkout-btn:hover {
+            background: linear-gradient(135deg, var(--purple), var(--hot-pink));
+            transform: scale(1.02);
+        }
+        .footer-bar {
+            background: var(--purple);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+        .nav-list li {
+            display: inline;
+        }
+        .nav-list li a {
+            text-decoration: none;
+            color: var(--pure-white);
+            font-weight: 600;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            padding: 10px 0;
+        }
+        .nav-list li a:hover {
+            color: var(--hot-pink);
+            border-bottom: 2px solid var(--hot-pink);
+        }
+        @media (max-width: 700px) {
+            .product-list {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .product-box {
+                width: 100%;
+            }
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        button {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-    <div style="display:flex;align-items:center;">
-        <img src="logo.png" alt="Kyan Talks Logo">
-        <h1>Kyan Talks</h1>
+    <div class="topbar">
+        <div style="display:flex;align-items:center;">
+            <img src="logo.png" alt="Kyan Talks Logo">
+            <h1>Kyan Talks</h1>
+        </div>
+        <div class="header-actions">
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="cart-btn" onclick="toggleCartPanel()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+        </div>
     </div>
-    <nav class="navbar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <button class="cart-icon-btn" onclick="toggleCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count-badge" id="cart-count">0</span>
-    </button>
-</div>
-
-    <div class="hero">
+    <div class="hero-section">
         <h2>Beauty that Empowers</h2>
-        <p>Discover our premium collection of beauty products designed to make you glow inside and out.</p>
+        <p>
+            Discover our premium collection of beauty products designed to make you glow inside and out.
+        </p>
     </div>
-
-    <div class="products">
+    <div class="shop-section">
         <h2>Our Beauty Products</h2>
-        <div class="product-cards" id="product-list"></div>
+        <div class="product-list" id="product-list"></div>
     </div>
-
-    <div class="cart-sidebar" id="cart">
-        <div class="cart-sidebar-header">
-            <i class="fas fa-arrow-left back-arrow" onclick="toggleCart()"></i>
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-panel-header">
+            <i class="fas fa-arrow-left close-arrow" onclick="toggleCartPanel()"></i>
             <h3>Your Cart</h3>
         </div>
-        <div id="cart-items"></div>
+        <div id="cart-products"></div>
         <button class="checkout-btn">Checkout</button>
     </div>
-
-    <div class="footer">
+    <div class="footer-bar">
         <p>&copy; 2025 Kyan Talks. All rights reserved.</p>
     </div>
-
     <script>
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function () {
@@ -64,49 +307,49 @@
         })();
 
         const productList = document.getElementById("product-list");
-        const cartSidebar = document.getElementById("cart");
-        const cartItemsContainer = document.getElementById("cart-items");
-        const cartCount = document.getElementById("cart-count");
+        const cartPanel = document.getElementById("cart-panel");
+        const cartProductsDiv = document.getElementById("cart-products");
+        const cartBadge = document.getElementById("cart-badge");
 
-        let cart = [];
+        let cartItems = [];
 
-        function toggleCart() {
-            cartSidebar.classList.toggle("active");
+        function toggleCartPanel() {
+            cartPanel.classList.toggle("active");
         }
 
-        function addToCart(product) {
-            cart.push(product);
-            updateCart();
+        function addProductToCart(product) {
+            cartItems.push(product);
+            updateCartPanel();
         }
 
-        function updateCart() {
-            cartItemsContainer.innerHTML = "";
-            cart.forEach((item, index) => {
+        function updateCartPanel() {
+            cartProductsDiv.innerHTML = "";
+            cartItems.forEach((item) => {
                 const div = document.createElement("div");
-                div.classList.add("cart-item");
+                div.classList.add("cart-product");
                 div.innerHTML = `<strong>${item.title}</strong><br>$${item.price.toFixed(2)}`;
-                cartItemsContainer.appendChild(div);
+                cartProductsDiv.appendChild(div);
             });
-            cartCount.textContent = cart.length;
+            cartBadge.textContent = cartItems.length;
         }
 
         fetch("https://fakestoreapi.com/products/category/women's clothing")
-            .then(res => res.json())
-            .then(data => {
-                productList.innerHTML = "";
-                data.forEach(product => {
-                    const card = document.createElement("div");
-                    card.classList.add("product-card");
-                    card.innerHTML = `
-                        <img src="${product.image}" alt="${product.title}">
-                        <h4>${product.title}</h4>
-                        <p>$${product.price.toFixed(2)}</p>
-                        <button class="add-btn">Add to Cart</button>
-                    `;
-                    card.querySelector(".add-btn").addEventListener("click", () => addToCart(product));
-                    productList.appendChild(card);
-                });
+        .then(res => res.json())
+        .then(data => {
+            productList.innerHTML = "";
+            data.slice(0, 3).forEach(product => { // Only show 3 products
+                const card = document.createElement("div");
+                card.classList.add("product-box");
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h4>${product.title}</h4>
+                    <p>$${product.price.toFixed(2)}</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                `;
+                card.querySelector(".add-cart-btn").addEventListener("click", () => addProductToCart(product));
+                productList.appendChild(card);
             });
+        });
     </script>
 </body>
 </html>
